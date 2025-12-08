@@ -1,4 +1,4 @@
-This repository is the official implementation of [SeeU](https://arxiv.org/).
+This repository is the official implementation of [FlowSteer](https://arxiv.org/).
 
 > **FlowSteer: Conditioning Flow Field for Consistent Image Restoration** <br>
 > [Tharindu Wickremasinghe](https://tharindu-nirmal.github.io/), [Chenyang Qi](https://scholar.google.com/citations?user=qNweIR4AAAAJ&hl=en), [Harshana Weligampola](https://harshana95.github.io/), [Zhengzhong Tu](https://vztu.github.io/), [Stanley H. Chan](https://engineering.purdue.edu/ChanGroup/stanleychan.html)<br>
