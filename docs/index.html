@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Conditioning a Flow field with a simple scheduler allows for physically consistent image restorations.">
+  <meta name="keywords" content="Flow, Image Restoration, Physical Consistency">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FlowSteer: Conditioning Flow Field for Consistent Image Restoration</title>
+
+  <!-- Fonts & CSS -->
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <!-- JS -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<!-- Simple navbar (no "More Research") -->
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="#">
+      <strong>FlowSteer</strong>
+    </a>
+
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="#tldr">TL;DR</a>
+      <a class="navbar-item" href="#results">Results</a>
+      <a class="navbar-item" href="#method">Method</a>
+      <a class="navbar-item" href="#BibTeX">BibTeX</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero: title + authors + buttons (placeholders) -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">
+            FlowSteer: Conditioning Flow Field for Consistent Image Restoration
+          </h1>
+
+          <!-- Authors (placeholders – edit these) -->
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://tharindu-nirmal.github.io/">Tharindu Wickremasinghe</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=qNweIR4AAAAJ&hl=en">Chenyang Qi</a><sup>2</sup>,</span>
+            <span class="author-block">
+              <a href="https://harshana95.github.io/">Harshana Weligampola</a><sup>1</sup>
+            <span class="author-block">
+              <a href="https://vztu.github.io/">Zhengzhong Tu</a><sup>3</sup>
+            <span class="author-block">
+              <a href="https://engineering.purdue.edu/ChanGroup/stanleychan.html">Stanley H. Chan</a><sup>1</sup>
+            </span>
+          </div>
+
+          <!-- Affiliations (placeholders) -->
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>Purdue University</span>
+            <span class="author-block"><sup>2</sup>HKUST</span>
+            <span class="author-block"><sup>3</sup>Texas A&M University</span>
+          </div>
+
+          <!-- Top buttons (Paper / arXiv / Code / Data placeholders) -->
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF -->
+              <span class="link-block">
+                <a href="#" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <!-- arXiv -->
+              <span class="link-block">
+                <a href="#" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Video (optional) -->
+              <span class="link-block">
+                <a href="#" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span>
+              <!-- Code -->
+              <span class="link-block">
+                <a href="https://github.com/Tharindu-Nirmal/FlowSteer"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                </a>
+              </span>
+              <!-- Dataset (optional) -->
+              <span class="link-block">
+                <a href="#"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="far fa-images"></i>
+                  </span>
+                  <span>Data</span>
+                </a>
+              </span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- (Optional) teaser video / gif – keep as placeholder -->
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <!-- Replace teaser.mp4 later, or remove this whole block -->
+      <video id="teaser" autoplay muted loop playsinline height="100%">
+        <source src="./static/videos/teaser.mp4" type="video/mp4">
+      </video>
+      <h2 class="subtitle has-text-centered" id="tldr">
+        TL;DR placeholder: one sentence summary of FlowSteer goes here.
+      </h2>
+    </div>
+  </div>
+</section>
+
+<!-- Simple TL;DR section -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">TL;DR</h2>
+        <div class="content has-text-justified">
+          <p>
+            FlowSteer enables to steer a pre-trained flow-based vision language model for zero-shot image reconstruction, by explicitly conditioning on pixel-level fidelity.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Results placeholder, analogous to "SeeU generates more physical motion..." -->
+<section class="section" id="results">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Results</h2>
+        <div class="content has-text-justified">
+          <p>
+            TODO: Briefly describe the main qualitative/quantitative improvements over baselines.
+            Later add galleries, toggles, or videos here (e.g., denoising, deblurring,
+            super-resolution, inpainting comparisons).
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Abstract section -->
+<section class="section" id="abstract">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Flow-based text-to-image (T2I) models excel at prompt-driven image generation, but falter on Image Restoration (IR), often "drifting away" from being faithful to the measurement. 
+Prior work mitigate this drift with data-specific flows or task-specific adapters that are computationally heavy and not scalable across tasks. This raises the question "Can't we efficiently manipulate the existing generative capabilities of a flow model?" 
+To this end, we introduce <b>FlowSteer (FS)</b>, an operator-aware conditioning scheme that injects measurement priors along the sampling path,coupling a frozed flow's implicit guidance with explicit measurement constraints. 
+Across super-resolution, deblurring, denoising, and colorization, FS improves measurement consistency and identity preservation in a strictly zero-shot setting— <b>no retrained models, no adapters</b>.
+We show how the nature of flow models and their sensitivities to noise inform the design of such a scheduler.FlowSteer, although simple, achieves a higher fidelity of reconstructed images, while leveraging the rich generative priors of flow models.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Method section (rough analog of SeeU "Why 4D" + "Method") -->
+<section class="section" id="method">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Method</h2>
+        <div class="content has-text-justified">
+          <p>
+            TODO: High-level description of the FlowSteer pipeline goes here.
+            Later insert figures for the pipeline, schedulers, or flow updates.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Tasks / Applications placeholder (analog of Unseen Temporal/Spatial Generation, Editing, etc.) -->
+<section class="section" id="applications">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Applications</h2>
+        <div class="content has-text-justified">
+          <p>
+            TODO: List the restoration/editing tasks where FlowSteer is applied
+            (e.g., deblurring, denoising, super-resolution, inpainting, colorization).
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BibTeX, like SeeU's bottom section -->
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{Tharindu_2025_FlowSteer,
+  title   = {FlowSteer: Conditioning Flow Field for Consistent Image Restoration},
+  author  = {Wickremasinghe, Tharindu and Qi, Chenyang and Weligampola, Harshana and Tu, Zhengzhong and Chan, Stanley H.},
+  journal = {arXiv preprint arXiv:XXXXX},
+  year    = {2025},
+}</code></pre>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <!-- Optional footer icons -->
+      <a class="icon-link" href="#">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://github.com/tharindu-nirmal/FlowSteer" class="external-link">
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a
+            <a rel="license"
+               href="http://creativecommons.org/licenses/by-sa/4.0/">
+              Creative Commons Attribution-ShareAlike 4.0 International License
+            </a>.
+          </p>
+          <p>
+            Built with the
+            <a href="https://github.com/nerfies/nerfies.github.io">Nerfies template</a>.
+            Please remember to remove or customize any analytics code (none is included by default here).
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
