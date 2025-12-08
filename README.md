@@ -5,7 +5,7 @@ This repository is the official implementation of [SeeU](https://arxiv.org/).
 
 [![Arxiv](https://img.shields.io/badge/arXiv-2512.03350-b31b1b.svg?style=for-the-badge&logo=arxiv)](https://arxiv.org/)
 [![Project Page](https://img.shields.io/badge/Project-Page-green?style=for-the-badge)](https://tharindu-nirmal.github.io/)
-[![SeeU45 Dataset](https://img.shields.io/badge/SeeU45%20-Dataset-FF4F1D.svg?style=for-the-badge&logo=Huggingface)](https://huggingface.co/datasets/)
+[![FlowSteer Dataset](https://img.shields.io/badge/SeeU45%20-Dataset-FF4F1D.svg?style=for-the-badge&logo=Huggingface)](https://huggingface.co/datasets/)
 
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.5.1-EE4C2C.svg?style=for-the-badge&logo=pytorch)](https://pytorch.org)
 [![Python](https://img.shields.io/badge/python-3.10-blue?style=for-the-badge)](https://www.python.org)
