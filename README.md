@@ -38,7 +38,7 @@ If you feel this project helpful/insightful, please cite our paper:
 ```bibtex
 @article{Tharindu_2025_FlowSteer,
   title={{FlowSteer}: Conditioning Flow Field for Consistent Image Restoration},
-  author={Wickremasinghe, Tharindu and Qi, Chenyang and Weligampola, Harshana and Tu, Zhengzhong and Chan, Stanley H.,
+  author={Wickremasinghe, Tharindu and Qi, Chenyang and Weligampola, Harshana and Tu, Zhengzhong and Chan, Stanley H.},
   journal={arXiv preprint arXiv: },
   year={2025}
 }
