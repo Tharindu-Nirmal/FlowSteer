@@ -229,14 +229,14 @@ body {
 
 /* TL;DR inline label + text */
 .tldr-line {
-  font-size: 1.2rem;          /* was 1rem – increase this for bigger text */
+  font-size: 1.4rem;          /* was 1rem – increase this for bigger text */
   line-height: 1.7;
 }
 
 .tldr-inline .tldr-label {
   font-family: 'Google Sans', sans-serif;
   font-weight: 600;
-  font-size: 1.3rem;       /* make the TL;DR label a bit larger */
+  font-size: 1.5rem;       /* make the TL;DR label a bit larger */
   letter-spacing: 0.03em;
   margin-right: 0.6rem;
 }
