@@ -18,7 +18,7 @@
   <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
   <link rel="stylesheet" href="./static/css/index.css">
-  <link rel="icon" href="./static/images/favicon.svg">
+  <!-- <link rel="icon" href="./static/images/favicon.svg"> -->
 
   <!-- JS -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -89,14 +89,14 @@
           <div class="column has-text-centered">
             <div class="publication-links">
               <!-- PDF -->
-              <span class="link-block">
+              <!-- <span class="link-block">
                 <a href="#" class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                     <i class="fas fa-file-pdf"></i>
                   </span>
                   <span>Paper</span>
                 </a>
-              </span>
+              </span> -->
               <!-- arXiv -->
               <span class="link-block">
                 <a href="#" class="external-link button is-normal is-rounded is-dark">
@@ -107,14 +107,14 @@
                 </a>
               </span>
               <!-- Video (optional) -->
-              <span class="link-block">
+              <!-- <span class="link-block">
                 <a href="#" class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                     <i class="fab fa-youtube"></i>
                   </span>
                   <span>Video</span>
                 </a>
-              </span>
+              </span> -->
               <!-- Code -->
               <span class="link-block">
                 <a href="https://github.com/Tharindu-Nirmal/FlowSteer"
@@ -145,15 +145,35 @@
 </section>
 
 <!-- (Optional) teaser video / gif – keep as placeholder -->
-<section class="hero teaser">
+<!-- <section class="hero teaser">
   <div class="container is-max-desktop">
     <div class="hero-body">
       <!-- Replace teaser.mp4 later, or remove this whole block -->
-      <video id="teaser" autoplay muted loop playsinline height="100%">
-        <source src="./static/videos/teaser.mp4" type="video/mp4">
-      </video>
+      <!-- <video id="teaser" autoplay muted loop playsinline height="100%"> 
+        <source src="./static/images/WebsiteTeaser_1.png" type=""> <!-- or ./static/videos/... if you prefer -->
+      <!-- </video>
       <h2 class="subtitle has-text-centered" id="tldr">
-        TL;DR placeholder: one sentence summary of FlowSteer goes here.
+        TL;DR- Explicit conditioning a flow field with a simple scheduler allows for physically consistent image restoration with pixel-level fidelity.
+      </h2>
+    </div>
+  </div>
+</section> --> 
+
+<!-- Teaser image instead of video -->
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <div class="has-text-centered">
+        <img
+          id="teaser"
+          src="./static/images/WebsiteTeaser_1.png" 
+          alt="FlowSteer teaser"
+          style="max-width: 100%; height: auto;"
+        >
+      </div>
+      <h2 class="subtitle has-text-centered" id="tldr">
+        TL;DR – Explicit conditioning a flow field with a simple scheduler allows for
+        physically consistent image restoration with pixel-level fidelity.
       </h2>
     </div>
   </div>
@@ -167,7 +187,7 @@
         <h2 class="title is-3">TL;DR</h2>
         <div class="content has-text-justified">
           <p>
-            FlowSteer enables to steer a pre-trained flow-based vision language model for zero-shot image reconstruction, by explicitly conditioning on pixel-level fidelity.
+            FlowSteer enables to steer a pre-trained flow-based vision language model for zero-shot image reconstruction. It preserves pixel-level fidelity, while leveraging the strong flow-priors.
           </p>
         </div>
       </div>
@@ -238,7 +258,7 @@ We show how the nature of flow models and their sensitivities to noise inform th
         <h2 class="title is-3">Applications</h2>
         <div class="content has-text-justified">
           <p>
-            TODO: List the restoration/editing tasks where FlowSteer is applied
+            TODO: List the restoration tasks where FlowSteer is applied
             (e.g., deblurring, denoising, super-resolution, inpainting, colorization).
           </p>
         </div>
@@ -284,7 +304,7 @@ We show how the nature of flow models and their sensitivities to noise inform th
           <p>
             Built with the
             <a href="https://github.com/nerfies/nerfies.github.io">Nerfies template</a>.
-            Please remember to remove or customize any analytics code (none is included by default here).
+            <!-- Please remember to remove or customize any analytics code (none is included by default here). -->
           </p>
         </div>
       </div>
