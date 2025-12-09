@@ -155,3 +155,48 @@ body {
 #interpolation-image-wrapper img {
   border-radius: 5px;
 }
+
+/* Before/after slider styles */
+.ba-slider-wrapper {
+  margin-top: 1.5rem;
+}
+
+.ba-slider {
+  position: relative;
+  max-width: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.ba-img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.ba-img-after-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%; /* start at 50% */
+  height: 100%;
+  overflow: hidden;
+}
+
+.ba-slider-input {
+  position: absolute;
+  left: 50%;
+  bottom: 10px;
+  transform: translateX(-50%);
+  width: 80%;
+}
+
+/* Task panels: show only active */
+.task-panel {
+  display: none;
+  margin-top: 1.5rem;
+}
+
+.task-panel.is-active {
+  display: block;
+}

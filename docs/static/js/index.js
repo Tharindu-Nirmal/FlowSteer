@@ -76,3 +76,42 @@ $(document).ready(function() {
     bulmaSlider.attach();
 
 })
+
+// Task tabs: toggle panels
+document.addEventListener("DOMContentLoaded", function () {
+  const tabs = document.querySelectorAll(".tabs ul li[data-task]");
+  const panels = document.querySelectorAll(".task-panel");
+
+  tabs.forEach(tab => {
+    tab.addEventListener("click", () => {
+      const task = tab.getAttribute("data-task");
+
+      // Update tab active state
+      tabs.forEach(t => t.classList.remove("is-active"));
+      tab.classList.add("is-active");
+
+      // Show the corresponding panel
+      panels.forEach(panel => {
+        if (panel.getAttribute("data-task") === task) {
+          panel.classList.add("is-active");
+        } else {
+          panel.classList.remove("is-active");
+        }
+      });
+    });
+  });
+
+  // Before/after sliders
+  const sliders = document.querySelectorAll(".ba-slider");
+  sliders.forEach(slider => {
+    const input = slider.querySelector(".ba-slider-input");
+    const afterWrapper = slider.querySelector(".ba-img-after-wrapper");
+
+    if (input && afterWrapper) {
+      input.addEventListener("input", () => {
+        const val = input.value; // 0–100
+        afterWrapper.style.width = val + "%";
+      });
+    }
+  });
+});

@@ -153,7 +153,7 @@
         <source src="./static/images/WebsiteTeaser_1.png" type=""> <!-- or ./static/videos/... if you prefer -->
       <!-- </video>
       <h2 class="subtitle has-text-centered" id="tldr">
-        TL;DR- Explicit conditioning a flow field with a simple scheduler allows for physically consistent image restoration with pixel-level fidelity.
+        Explicit conditioning a flow field with a simple scheduler allows for physically consistent image restoration with pixel-level fidelity.
       </h2>
     </div>
   </div>
@@ -195,23 +195,186 @@
   </div>
 </section>
 
-<!-- Results placeholder, analogous to "SeeU generates more physical motion..." -->
+<!-- Results section with task tabs + comparison + slider -->
 <section class="section" id="results">
   <div class="container is-max-desktop">
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3">Results</h2>
+    <h2 class="title is-3 has-text-centered">Results</h2>
+
+    <!-- Tabs for tasks -->
+    <div class="tabs is-toggle is-toggle-rounded is-centered is-medium">
+      <ul>
+        <li class="is-active" data-task="colorization"><a>Colorization</a></li>
+        <li data-task="superres"><a>Super-resolution</a></li>
+        <li data-task="denoising"><a>Denoising</a></li>
+        <li data-task="deblurring"><a>Deblurring</a></li>
+      </ul>
+    </div>
+
+    <!-- Task panels -->
+    <div class="task-panels">
+
+      <!-- Colorization -->
+      <div class="task-panel is-active" data-task="colorization">
         <div class="content has-text-justified">
           <p>
-            TODO: Briefly describe the main qualitative/quantitative improvements over baselines.
-            Later add galleries, toggles, or videos here (e.g., denoising, deblurring,
-            super-resolution, inpainting comparisons).
+            Qualitative comparison for <strong>colorization</strong>. FlowSteer better preserves
+            global color consistency and local texture details compared to baseline methods.
           </p>
         </div>
+
+        <!-- 1) Static comparison image -->
+        <div class="has-text-centered">
+          <img
+            src="./static/images/colorization_compare.png"
+            alt="Colorization: comparison between FlowSteer and baselines"
+            style="max-width: 100%; height: auto;"
+          >
+        </div>
+
+        <!-- 2) Before/After slider -->
+        <div class="ba-slider-wrapper">
+          <p class="has-text-centered" style="margin-top: 1rem;">
+            Input (grayscale) &nbsp;↔&nbsp; FlowSteer colorized result
+          </p>
+          <div class="ba-slider" data-task="colorization">
+            <img
+              src="./static/images/colorization_input.png"
+              alt="Colorization input"
+              class="ba-img ba-img-before"
+            >
+            <div class="ba-img-after-wrapper">
+              <img
+                src="./static/images/colorization_flowsteer.png"
+                alt="Colorization output"
+                class="ba-img ba-img-after"
+              >
+            </div>
+            <input class="ba-slider-input" type="range" min="0" max="100" value="50">
+          </div>
+        </div>
       </div>
+
+      <!-- Super-resolution -->
+      <div class="task-panel" data-task="superres">
+        <div class="content has-text-justified">
+          <p>
+            Qualitative comparison for <strong>super-resolution</strong>. FlowSteer reconstructs
+            sharper edges and fine details while remaining faithful to the low-resolution input.
+          </p>
+        </div>
+
+        <div class="has-text-centered">
+          <img
+            src="./static/images/superres_compare.png"
+            alt="Super-resolution: comparison between FlowSteer and baselines"
+            style="max-width: 100%; height: auto;"
+          >
+        </div>
+
+        <div class="ba-slider-wrapper">
+          <p class="has-text-centered" style="margin-top: 1rem;">
+            Input (low-res) &nbsp;↔&nbsp; FlowSteer super-resolved result
+          </p>
+          <div class="ba-slider" data-task="superres">
+            <img
+              src="./static/images/superres_input.png"
+              alt="Super-resolution input"
+              class="ba-img ba-img-before"
+            >
+            <div class="ba-img-after-wrapper">
+              <img
+                src="./static/images/superres_flowsteer.png"
+                alt="Super-resolution output"
+                class="ba-img ba-img-after"
+              >
+            </div>
+            <input class="ba-slider-input" type="range" min="0" max="100" value="50">
+          </div>
+        </div>
+      </div>
+
+      <!-- Denoising -->
+      <div class="task-panel" data-task="denoising">
+        <div class="content has-text-justified">
+          <p>
+            Qualitative comparison for <strong>denoising</strong>. FlowSteer removes noise while
+            preserving high-frequency texture and contrast.
+          </p>
+        </div>
+
+        <div class="has-text-centered">
+          <img
+            src="./static/images/denoising_compare.png"
+            alt="Denoising: comparison between FlowSteer and baselines"
+            style="max-width: 100%; height: auto;"
+          >
+        </div>
+
+        <div class="ba-slider-wrapper">
+          <p class="has-text-centered" style="margin-top: 1rem;">
+            Input (noisy) &nbsp;↔&nbsp; FlowSteer denoised result
+          </p>
+          <div class="ba-slider" data-task="denoising">
+            <img
+              src="./static/images/denoising_input.png"
+              alt="Denoising input"
+              class="ba-img ba-img-before"
+            >
+            <div class="ba-img-after-wrapper">
+              <img
+                src="./static/images/denoising_flowsteer.png"
+                alt="Denoising output"
+                class="ba-img ba-img-after"
+              >
+            </div>
+            <input class="ba-slider-input" type="range" min="0" max="100" value="50">
+          </div>
+        </div>
+      </div>
+
+      <!-- Deblurring -->
+      <div class="task-panel" data-task="deblurring">
+        <div class="content has-text-justified">
+          <p>
+            Qualitative comparison for <strong>deblurring</strong>. FlowSteer restores sharp
+            structure from motion- and defocus-blurred inputs.
+          </p>
+        </div>
+
+        <div class="has-text-centered">
+          <img
+            src="./static/images/deblurring_compare.png"
+            alt="Deblurring: comparison between FlowSteer and baselines"
+            style="max-width: 100%; height: auto;"
+          >
+        </div>
+
+        <div class="ba-slider-wrapper">
+          <p class="has-text-centered" style="margin-top: 1rem;">
+            Input (blurred) &nbsp;↔&nbsp; FlowSteer deblurred result
+          </p>
+          <div class="ba-slider" data-task="deblurring">
+            <img
+              src="./static/images/deblurring_input.png"
+              alt="Deblurring input"
+              class="ba-img ba-img-before"
+            >
+            <div class="ba-img-after-wrapper">
+              <img
+                src="./static/images/deblurring_flowsteer.png"
+                alt="Deblurring output"
+                class="ba-img ba-img-after"
+              >
+            </div>
+            <input class="ba-slider-input" type="range" min="0" max="100" value="50">
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
+
 
 <!-- Abstract section -->
 <section class="section" id="abstract">
@@ -233,18 +396,36 @@ We show how the nature of flow models and their sensitivities to noise inform th
   </div>
 </section>
 
-<!-- Method section (rough analog of SeeU "Why 4D" + "Method") -->
+<!-- Method section -->
 <section class="section" id="method">
   <div class="container is-max-desktop">
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3">Method</h2>
+    <h2 class="title is-3 has-text-centered">Method</h2>
+
+    <div class="columns is-vcentered">
+      <!-- Text column -->
+      <div class="column">
         <div class="content has-text-justified">
           <p>
-            TODO: High-level description of the FlowSteer pipeline goes here.
-            Later insert figures for the pipeline, schedulers, or flow updates.
+            <!-- Replace this with your own sentences -->
+            FlowSteer conditions a pre–trained flow-based vision-language model with a simple, measurement-aware scheduler for explicit conditioning. 
+            The scheduler is designed to control the fidelity update that aligns the flow trajectory with the forward operator.
+            This complements the implicit conditioning from the text prompts that leverages the generative priors from the pre-trained model.
           </p>
         </div>
+      </div>
+
+      <!-- Figure column -->
+      <div class="column has-text-centered">
+        <figure class="image">
+          <img
+            src="./static/images/Website_Method_1.png"
+            alt="Overview of the FlowSteer method"
+            style="max-width: 100%; height: auto;"
+          >
+          <figcaption class="has-text-grey is-size-7" style="margin-top: 0.5rem;">
+            Figure: High-level overview of the FlowSteer pipeline.
+          </figcaption>
+        </figure>
       </div>
     </div>
   </div>
