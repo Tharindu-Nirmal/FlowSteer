@@ -172,7 +172,7 @@
         >
       </div>
       <h2 class="subtitle has-text-centered" id="tldr">
-        TL;DR – Explicit conditioning a flow field with a simple scheduler allows for
+        Explicit conditioning a flow field with a simple scheduler allows for
         physically consistent image restoration with pixel-level fidelity.
       </h2>
     </div>
@@ -232,32 +232,65 @@
           >
         </div>
 
-        <!-- 2) Before/After slider -->
-        <div class="ba-slider-wrapper">
-          <p class="has-text-centered" style="margin-top: 1rem;">
-            Input (grayscale) &nbsp;↔&nbsp; FlowSteer colorized result
-          </p>
-          <div class="ba-slider" data-task="colorization">
-            <img
-              src="./static/images/colorization_input.png"
-              alt="Colorization input"
-              class="ba-img ba-img-before"
-            >
-            <div class="ba-img-after-wrapper">
-              <img
-                src="./static/images/colorization_flowsteer.png"
-                alt="Colorization output"
-                class="ba-img ba-img-after"
-              >
+        <!-- 2) Sliders row -->
+        <div class="columns is-variable is-6 is-desktop">
+          <!-- Left: Input vs FlowSteer -->
+          <div class="column">
+            <div class="ba-slider-wrapper">
+              <p class="has-text-centered" style="margin-top: 1rem;">
+                Input (grayscale) &nbsp;↔&nbsp; FlowSteer colorized result
+              </p>
+              <div class="ba-slider" data-task="colorization-input-vs-flowsteer">
+                <!-- Base image on the right (FlowSteer) -->
+                <img
+                  src="./static/images/colorization_flowsteer.png"
+                  alt="Colorization output (FlowSteer)"
+                  class="ba-img ba-img-before"
+                >
+                <!-- Overlay image on the left (input) -->
+                <div class="ba-img-after-wrapper">
+                  <img
+                    src="./static/images/colorization_input.png"
+                    alt="Colorization input"
+                    class="ba-img ba-img-after"
+                  >
+                </div>
+
+                <div class="ba-handle"></div>
+                <input class="ba-slider-input" type="range" min="0" max="100" value="50">
+              </div>
             </div>
+          </div>
 
-            <!-- Visible draggable separator line -->
-            <div class="ba-handle"></div>
+          <!-- Right: w/o FlowSteer vs w/ FlowSteer -->
+          <div class="column">
+            <div class="ba-slider-wrapper">
+              <p class="has-text-centered" style="margin-top: 1rem;">
+                Colorization with a flow model&nbsp;without / with&nbsp;FlowSteer
+              </p>
+              <div class="ba-slider" data-task="colorization-ablation">
+                <!-- Base image on the right (with FlowSteer) -->
+                <img
+                  src="./static/images/colorization_flowsteer.png"
+                  alt="Colorization with FlowSteer"
+                  class="ba-img ba-img-before"
+                >
+                <!-- Overlay image on the left (without FlowSteer) -->
+                <div class="ba-img-after-wrapper">
+                  <img
+                    src="./static/images/colorization_withoutflowsteer.png"
+                    alt="Colorization without FlowSteer"
+                    class="ba-img ba-img-after"
+                  >
+                </div>
 
-            <!-- Invisible range input that actually controls the slider -->
-            <input class="ba-slider-input" type="range" min="0" max="100" value="50">
+                <div class="ba-handle"></div>
+                <input class="ba-slider-input" type="range" min="0" max="100" value="50">
+              </div>
+            </div>
           </div>
         </div>
+
       </div>
 
       <!-- Super-resolution -->
@@ -278,27 +311,62 @@
           >
         </div>
 
-        <!-- 2) Before/After slider -->
-        <div class="ba-slider-wrapper">
-          <p class="has-text-centered" style="margin-top: 1rem;">
-            Input (low-res) &nbsp;↔&nbsp; FlowSteer super-resolved result
-          </p>
-          <div class="ba-slider" data-task="superres">
-            <img
-              src="./static/images/superres_input.png"
-              alt="Super-resolution input"
-              class="ba-img ba-img-before"
-            >
-            <div class="ba-img-after-wrapper">
-              <img
-                src="./static/images/superres_flowsteer.png"
-                alt="Super-resolution output"
-                class="ba-img ba-img-after"
-              >
-            </div>
+        <!-- 2) Sliders row -->
+        <div class="columns is-variable is-6 is-desktop">
+          <!-- Left: Input vs FlowSteer -->
+          <div class="column">
+            <div class="ba-slider-wrapper">
+              <p class="has-text-centered" style="margin-top: 1rem;">
+                Input (4x low res. + noise) &nbsp;↔&nbsp; FlowSteer higher res. result
+              </p>
+              <div class="ba-slider" data-task="superres-input-vs-flowsteer">
+                <!-- Base image on the right (FlowSteer) -->
+                <img
+                  src="./static/images/superres_flowsteer.png"
+                  alt="superres output (FlowSteer)"
+                  class="ba-img ba-img-before"
+                >
+                <!-- Overlay image on the left (input) -->
+                <div class="ba-img-after-wrapper">
+                  <img
+                    src="./static/images/superres_input.png"
+                    alt="superres input"
+                    class="ba-img ba-img-after"
+                  >
+                </div>
 
-            <div class="ba-handle"></div>
-            <input class="ba-slider-input" type="range" min="0" max="100" value="50">
+                <div class="ba-handle"></div>
+                <input class="ba-slider-input" type="range" min="0" max="100" value="50">
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: w/o FlowSteer vs w/ FlowSteer -->
+          <div class="column">
+            <div class="ba-slider-wrapper">
+              <p class="has-text-centered" style="margin-top: 1rem;">
+                Super-resolution with a flow model&nbsp;without / with&nbsp;FlowSteer
+              </p>
+              <div class="ba-slider" data-task="superres-ablation">
+                <!-- Base image on the right (with FlowSteer) -->
+                <img
+                  src="./static/images/superres_flowsteer.png"
+                  alt="superres with FlowSteer"
+                  class="ba-img ba-img-before"
+                >
+                <!-- Overlay image on the left (without FlowSteer) -->
+                <div class="ba-img-after-wrapper">
+                  <img
+                    src="./static/images/superres_withoutflowsteer.png"
+                    alt="superres without FlowSteer"
+                    class="ba-img ba-img-after"
+                  >
+                </div>
+
+                <div class="ba-handle"></div>
+                <input class="ba-slider-input" type="range" min="0" max="100" value="50">
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -321,27 +389,62 @@
           >
         </div>
 
-        <!-- 2) Before/After slider -->
-        <div class="ba-slider-wrapper">
-          <p class="has-text-centered" style="margin-top: 1rem;">
-            Input (noisy) &nbsp;↔&nbsp; FlowSteer denoised result
-          </p>
-          <div class="ba-slider" data-task="denoising">
-            <img
-              src="./static/images/denoising_input.png"
-              alt="Denoising input"
-              class="ba-img ba-img-before"
-            >
-            <div class="ba-img-after-wrapper">
-              <img
-                src="./static/images/denoising_flowsteer.png"
-                alt="Denoising output"
-                class="ba-img ba-img-after"
-              >
-            </div>
+        <!-- 2) Sliders row -->
+        <div class="columns is-variable is-6 is-desktop">
+          <!-- Left: Input vs FlowSteer -->
+          <div class="column">
+            <div class="ba-slider-wrapper">
+              <p class="has-text-centered" style="margin-top: 1rem;">
+                Input (noisy) &nbsp;↔&nbsp; FlowSteer denoised result
+              </p>
+              <div class="ba-slider" data-task="denoising-input-vs-flowsteer">
+                <!-- Base image on the right (FlowSteer) -->
+                <img
+                  src="./static/images/denoising_flowsteer.png"
+                  alt="denoising output (FlowSteer)"
+                  class="ba-img ba-img-before"
+                >
+                <!-- Overlay image on the left (input) -->
+                <div class="ba-img-after-wrapper">
+                  <img
+                    src="./static/images/denoising_input.png"
+                    alt="denoising input"
+                    class="ba-img ba-img-after"
+                  >
+                </div>
 
-            <div class="ba-handle"></div>
-            <input class="ba-slider-input" type="range" min="0" max="100" value="50">
+                <div class="ba-handle"></div>
+                <input class="ba-slider-input" type="range" min="0" max="100" value="50">
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: w/o FlowSteer vs w/ FlowSteer -->
+          <div class="column">
+            <div class="ba-slider-wrapper">
+              <p class="has-text-centered" style="margin-top: 1rem;">
+                Denoising with a flow model&nbsp;without / with&nbsp;FlowSteer
+              </p>
+              <div class="ba-slider" data-task="denoising-ablation">
+                <!-- Base image on the right (with FlowSteer) -->
+                <img
+                  src="./static/images/denoising_flowsteer.png"
+                  alt="denoising with FlowSteer"
+                  class="ba-img ba-img-before"
+                >
+                <!-- Overlay image on the left (without FlowSteer) -->
+                <div class="ba-img-after-wrapper">
+                  <img
+                    src="./static/images/denoising_withoutflowsteer.png"
+                    alt="denoising without FlowSteer"
+                    class="ba-img ba-img-after"
+                  >
+                </div>
+
+                <div class="ba-handle"></div>
+                <input class="ba-slider-input" type="range" min="0" max="100" value="50">
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -364,27 +467,62 @@
           >
         </div>
 
-        <!-- 2) Before/After slider -->
-        <div class="ba-slider-wrapper">
-          <p class="has-text-centered" style="margin-top: 1rem;">
-            Input (blurred) &nbsp;↔&nbsp; FlowSteer deblurred result
-          </p>
-          <div class="ba-slider" data-task="deblurring">
-            <img
-              src="./static/images/deblurring_input.png"
-              alt="Deblurring input"
-              class="ba-img ba-img-before"
-            >
-            <div class="ba-img-after-wrapper">
-              <img
-                src="./static/images/deblurring_flowsteer.png"
-                alt="Deblurring output"
-                class="ba-img ba-img-after"
-              >
-            </div>
+        <!-- 2) Sliders row -->
+        <div class="columns is-variable is-6 is-desktop">
+          <!-- Left: Input vs FlowSteer -->
+          <div class="column">
+            <div class="ba-slider-wrapper">
+              <p class="has-text-centered" style="margin-top: 1rem;">
+                Input (blurred + noise) &nbsp;↔&nbsp; FlowSteer deblurred result
+              </p>
+              <div class="ba-slider" data-task="deblurring-input-vs-flowsteer">
+                <!-- Base image on the right (FlowSteer) -->
+                <img
+                  src="./static/images/deblurring_flowsteer.png"
+                  alt="deblurring output (FlowSteer)"
+                  class="ba-img ba-img-before"
+                >
+                <!-- Overlay image on the left (input) -->
+                <div class="ba-img-after-wrapper">
+                  <img
+                    src="./static/images/deblurring_input.png"
+                    alt="Colorization input"
+                    class="ba-img ba-img-after"
+                  >
+                </div>
 
-            <div class="ba-handle"></div>
-            <input class="ba-slider-input" type="range" min="0" max="100" value="50">
+                <div class="ba-handle"></div>
+                <input class="ba-slider-input" type="range" min="0" max="100" value="50">
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: w/o FlowSteer vs w/ FlowSteer -->
+          <div class="column">
+            <div class="ba-slider-wrapper">
+              <p class="has-text-centered" style="margin-top: 1rem;">
+                Deblurring with a flow model&nbsp;without / with&nbsp;FlowSteer
+              </p>
+              <div class="ba-slider" data-task="deblurring-ablation">
+                <!-- Base image on the right (with FlowSteer) -->
+                <img
+                  src="./static/images/deblurring_flowsteer.png"
+                  alt="deblurring with FlowSteer"
+                  class="ba-img ba-img-before"
+                >
+                <!-- Overlay image on the left (without FlowSteer) -->
+                <div class="ba-img-after-wrapper">
+                  <img
+                    src="./static/images/deblurring_withoutflowsteer.png"
+                    alt="deblurring without FlowSteer"
+                    class="ba-img ba-img-after"
+                  >
+                </div>
+
+                <div class="ba-handle"></div>
+                <input class="ba-slider-input" type="range" min="0" max="100" value="50">
+              </div>
+            </div>
           </div>
         </div>
       </div>
