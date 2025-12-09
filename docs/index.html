@@ -195,7 +195,8 @@
   </div>
 </section>
 
-<!-- Results section with task tabs + comparison + slider -->
+
+<!-- Results section with task tabs + comparison + vertical split slider -->
 <section class="section" id="results">
   <div class="container is-max-desktop">
     <h2 class="title is-3 has-text-centered">Results</h2>
@@ -218,7 +219,7 @@
         <div class="content has-text-justified">
           <p>
             Qualitative comparison for <strong>colorization</strong>. FlowSteer better preserves
-            global color consistency and local texture details compared to baseline methods.
+            the identity of the input subject, while leveraging the colorizing priors from the flow-model.
           </p>
         </div>
 
@@ -249,6 +250,11 @@
                 class="ba-img ba-img-after"
               >
             </div>
+
+            <!-- Visible draggable separator line -->
+            <div class="ba-handle"></div>
+
+            <!-- Invisible range input that actually controls the slider -->
             <input class="ba-slider-input" type="range" min="0" max="100" value="50">
           </div>
         </div>
@@ -263,6 +269,7 @@
           </p>
         </div>
 
+        <!-- 1) Static comparison image -->
         <div class="has-text-centered">
           <img
             src="./static/images/superres_compare.png"
@@ -271,6 +278,7 @@
           >
         </div>
 
+        <!-- 2) Before/After slider -->
         <div class="ba-slider-wrapper">
           <p class="has-text-centered" style="margin-top: 1rem;">
             Input (low-res) &nbsp;↔&nbsp; FlowSteer super-resolved result
@@ -288,6 +296,8 @@
                 class="ba-img ba-img-after"
               >
             </div>
+
+            <div class="ba-handle"></div>
             <input class="ba-slider-input" type="range" min="0" max="100" value="50">
           </div>
         </div>
@@ -302,6 +312,7 @@
           </p>
         </div>
 
+        <!-- 1) Static comparison image -->
         <div class="has-text-centered">
           <img
             src="./static/images/denoising_compare.png"
@@ -310,6 +321,7 @@
           >
         </div>
 
+        <!-- 2) Before/After slider -->
         <div class="ba-slider-wrapper">
           <p class="has-text-centered" style="margin-top: 1rem;">
             Input (noisy) &nbsp;↔&nbsp; FlowSteer denoised result
@@ -327,6 +339,8 @@
                 class="ba-img ba-img-after"
               >
             </div>
+
+            <div class="ba-handle"></div>
             <input class="ba-slider-input" type="range" min="0" max="100" value="50">
           </div>
         </div>
@@ -337,10 +351,11 @@
         <div class="content has-text-justified">
           <p>
             Qualitative comparison for <strong>deblurring</strong>. FlowSteer restores sharp
-            structure from motion- and defocus-blurred inputs.
+            structure from Gaussian-blurred inputs.
           </p>
         </div>
 
+        <!-- 1) Static comparison image -->
         <div class="has-text-centered">
           <img
             src="./static/images/deblurring_compare.png"
@@ -349,6 +364,7 @@
           >
         </div>
 
+        <!-- 2) Before/After slider -->
         <div class="ba-slider-wrapper">
           <p class="has-text-centered" style="margin-top: 1rem;">
             Input (blurred) &nbsp;↔&nbsp; FlowSteer deblurred result
@@ -366,6 +382,8 @@
                 class="ba-img ba-img-after"
               >
             </div>
+
+            <div class="ba-handle"></div>
             <input class="ba-slider-input" type="range" min="0" max="100" value="50">
           </div>
         </div>
@@ -374,6 +392,7 @@
     </div>
   </div>
 </section>
+
 
 
 <!-- Abstract section -->
@@ -401,31 +420,35 @@ We show how the nature of flow models and their sensitivities to noise inform th
   <div class="container is-max-desktop">
     <h2 class="title is-3 has-text-centered">Method</h2>
 
-    <div class="columns is-vcentered">
-      <!-- Text column -->
-      <div class="column">
+    <!-- Figure on top -->
+    <div class="has-text-centered" style="margin-bottom: 1.5rem;">
+      <figure class="image">
+        <img
+          src="./static/images/Website_Method_1.png"
+          alt="Overview of the FlowSteer method"
+          style="max-width: 100%; height: auto;"
+        >
+        <figcaption class="has-text-grey is-size-7" style="margin-top: 0.5rem;">
+          Figure: High-level overview of the FlowSteer pipeline.
+        </figcaption>
+      </figure>
+    </div>
+
+    <!-- Text underneath -->
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
         <div class="content has-text-justified">
           <p>
-            <!-- Replace this with your own sentences -->
-            FlowSteer conditions a pre–trained flow-based vision-language model with a simple, measurement-aware scheduler for explicit conditioning. 
-            The scheduler is designed to control the fidelity update that aligns the flow trajectory with the forward operator.
-            This complements the implicit conditioning from the text prompts that leverages the generative priors from the pre-trained model.
+            FlowSteer conditions a pre–trained flow-based vision-language model with a simple,
+            measurement-aware scheduler for explicit conditioning. The scheduler is designed to
+            control the fidelity update that aligns the flow trajectory with the forward operator.
+          </p>
+          <p>
+            This explicit conditioning complements the implicit conditioning from text prompts,
+            allowing FlowSteer to leverage the rich generative priors of the pre-trained model
+            while maintaining strong pixel-level faithfulness to the measurements.
           </p>
         </div>
-      </div>
-
-      <!-- Figure column -->
-      <div class="column has-text-centered">
-        <figure class="image">
-          <img
-            src="./static/images/Website_Method_1.png"
-            alt="Overview of the FlowSteer method"
-            style="max-width: 100%; height: auto;"
-          >
-          <figcaption class="has-text-grey is-size-7" style="margin-top: 0.5rem;">
-            Figure: High-level overview of the FlowSteer pipeline.
-          </figcaption>
-        </figure>
       </div>
     </div>
   </div>

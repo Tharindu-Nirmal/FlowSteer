@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
         tabs.forEach((t) => t.classList.remove("is-active"));
         tab.classList.add("is-active");
 
-        // Show the matching panel, hide others
+        // Show the matching panel, hide the others
         panels.forEach((panel) => {
           if (panel.getAttribute("data-task") === task) {
             panel.classList.add("is-active");
@@ -36,21 +36,28 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // ----- Before/after sliders -----
+  // ----- Before/after sliders (clip-path + vertical handle) -----
   const sliders = document.querySelectorAll(".ba-slider");
 
   sliders.forEach((slider) => {
     const input = slider.querySelector(".ba-slider-input");
     const afterWrapper = slider.querySelector(".ba-img-after-wrapper");
+    const handle = slider.querySelector(".ba-handle");
 
-    if (!input || !afterWrapper) return;
+    if (!input || !afterWrapper || !handle) return;
 
-    // Set initial width based on initial input value
-    afterWrapper.style.width = input.value + "%";
+    function updateSlider() {
+      const val = parseFloat(input.value) || 0; // 0–100
+      // Reveal val% of the after image from the left
+      // We clip the right side by (100 - val)%
+      afterWrapper.style.clipPath = `inset(0 ${100 - val}% 0 0)`;
+      // Move the visible handle line
+      handle.style.left = `${val}%`;
+    }
 
-    input.addEventListener("input", () => {
-      const val = input.value; // 0–100
-      afterWrapper.style.width = val + "%";
-    });
+    // Update on drag
+    input.addEventListener("input", updateSlider);
+    // And once at start
+    updateSlider();
   });
 });
