@@ -227,10 +227,16 @@ body {
   transform: translate(-50%, -50%);
 }
 
-/* TL;DR inline label */
+/* TL;DR inline label + text */
+.tldr-line {
+  font-size: 1rem;          /* normal paragraph size */
+  line-height: 1.6;
+}
+
 .tldr-inline .tldr-label {
   font-family: 'Google Sans', sans-serif;
   font-weight: 600;
-  font-size: 1.05rem;  /* slightly smaller than a normal section title */
-  margin-right: 0.5rem;
+  font-size: 1.15rem;       /* slightly larger than text, but smaller than a title */
+  letter-spacing: 0.03em;
+  margin-right: 0.6rem;
 }
