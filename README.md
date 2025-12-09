@@ -4,7 +4,7 @@ This repository is the official implementation of [FlowSteer](https://arxiv.org/
 > [Tharindu Wickremasinghe](https://tharindu-nirmal.github.io/), [Chenyang Qi](https://scholar.google.com/citations?user=qNweIR4AAAAJ&hl=en), [Harshana Weligampola](https://harshana95.github.io/), [Zhengzhong Tu](https://vztu.github.io/), [Stanley H. Chan](https://engineering.purdue.edu/ChanGroup/stanleychan.html)<br>
 
 [![Arxiv](https://img.shields.io/badge/arXiv-2512.03350-b31b1b.svg?style=for-the-badge&logo=arxiv)](https://arxiv.org/)
-[![Project Page](https://img.shields.io/badge/Project-Page-green?style=for-the-badge)](https://tharindu-nirmal.github.io/)
+[![Project Page](https://img.shields.io/badge/Project-Page-green?style=for-the-badge)](https://tharindu-nirmal.github.io/FlowSteer/)
 [![FlowSteer Dataset](https://img.shields.io/badge/SeeU45%20-Dataset-FF4F1D.svg?style=for-the-badge&logo=Huggingface)](https://huggingface.co/datasets/)
 
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.5.1-EE4C2C.svg?style=for-the-badge&logo=pytorch)](https://pytorch.org)
