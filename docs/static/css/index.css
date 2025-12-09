@@ -226,3 +226,11 @@ body {
   border: 2px solid #333;
   transform: translate(-50%, -50%);
 }
+
+/* TL;DR inline label */
+.tldr-inline .tldr-label {
+  font-family: 'Google Sans', sans-serif;
+  font-weight: 600;
+  font-size: 1.05rem;  /* slightly smaller than a normal section title */
+  margin-right: 0.5rem;
+}
