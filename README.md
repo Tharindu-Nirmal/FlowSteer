@@ -15,7 +15,8 @@ This repository is the official implementation of [FlowSteer](https://arxiv.org/
 
 
 ## 🔥 Latest News!
-* [Dec 10, 2025]: Paper available on [arXiv](https://arxiv.org/).
+* [Dec 10, 2025]: Released the [Project page](https://tharindu-nirmal.github.io/FlowSteer/).
+* [Dec 9, 2025]: Paper available on [arXiv](https://www.arxiv.org/abs/2512.08125).
 
 
 
