@@ -3,7 +3,7 @@ This repository is the official implementation of [FlowSteer](https://arxiv.org/
 > **FlowSteer: Conditioning Flow Field for Consistent Image Restoration** <br>
 > [Tharindu Wickremasinghe](https://tharindu-nirmal.github.io/), [Chenyang Qi](https://scholar.google.com/citations?user=qNweIR4AAAAJ&hl=en), [Harshana Weligampola](https://harshana95.github.io/), [Zhengzhong Tu](https://vztu.github.io/), [Stanley H. Chan](https://engineering.purdue.edu/ChanGroup/stanleychan.html)<br>
 
-[![Arxiv](https://img.shields.io/badge/arXiv-2512.03350-b31b1b.svg?style=for-the-badge&logo=arxiv)](https://arxiv.org/)
+[![Arxiv](https://img.shields.io/badge/arXiv-2512.03350-b31b1b.svg?style=for-the-badge&logo=arxiv)](https://www.arxiv.org/abs/2512.08125)
 [![Project Page](https://img.shields.io/badge/Project-Page-green?style=for-the-badge)](https://tharindu-nirmal.github.io/FlowSteer/)
 [![FlowSteer Dataset](https://img.shields.io/badge/SeeU45%20-Dataset-FF4F1D.svg?style=for-the-badge&logo=Huggingface)](https://huggingface.co/datasets/)
 
@@ -37,10 +37,10 @@ We thank [RF-Edit](https://rf-solver-edit.github.io/) for their amazing jobs.
 ## 🌟 Citation
 If you feel this project helpful/insightful, please cite our paper:
 ```bibtex
-@article{Tharindu_2025_FlowSteer,
+@article{Tharindu2025_FlowSteer,
   title={{FlowSteer}: Conditioning Flow Field for Consistent Image Restoration},
   author={Wickremasinghe, Tharindu and Qi, Chenyang and Weligampola, Harshana and Tu, Zhengzhong and Chan, Stanley H.},
-  journal={arXiv preprint arXiv: },
+  journal={arXiv preprint arXiv: 2512.08125},
   year={2025}
 }
 ```
