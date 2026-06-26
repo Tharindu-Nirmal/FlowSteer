@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Conditioning a Flow field with a simple scheduler allows for physically consistent image restorations.">
+  <meta name="keywords" content="Flow, Image Restoration, Physical Consistency">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FlowSteer: Conditioning Flow Field for Consistent Image Restoration</title>
+
+  <!-- Fonts & CSS -->
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <!-- <link rel="icon" href="./static/images/favicon.svg"> -->
+
+  <!-- JS -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<!-- Simple navbar (no "More Research") -->
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="#">
+      <strong>FlowSteer</strong>
+    </a>
+
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="#tldr">TL;DR</a>
+      <a class="navbar-item" href="#results">Results</a>
+      <a class="navbar-item" href="#method">Method</a>
+      <a class="navbar-item" href="#BibTeX">BibTeX</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero: title + authors + buttons (placeholders) -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">
+            FlowSteer: Conditioning Flow Field for Consistent Image Restoration
+          </h1>
+
+          <!-- Authors (placeholders – edit these) -->
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://tharindu-nirmal.github.io/">Tharindu Wickremasinghe</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=qNweIR4AAAAJ&hl=en">Chenyang Qi</a><sup>2</sup>,</span>
+            <span class="author-block">
+              <a href="https://harshana95.github.io/">Harshana Weligampola</a><sup>1</sup>
+            <span class="author-block">
+              <a href="https://vztu.github.io/">Zhengzhong Tu</a><sup>3</sup>
+            <span class="author-block">
+              <a href="https://engineering.purdue.edu/ChanGroup/stanleychan.html">Stanley H. Chan</a><sup>1</sup>
+            </span>
+          </div>
+
+          <!-- Affiliations (placeholders) -->
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>Purdue University</span>
+            <span class="author-block"><sup>2</sup>HKUST</span>
+            <span class="author-block"><sup>3</sup>Texas A&M University</span>
+          </div>
+
+          <!-- Top buttons (Paper / arXiv / Code / Data placeholders) -->
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF -->
+              <!-- <span class="link-block">
+                <a href="#" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span> -->
+              <!-- arXiv -->
+              <span class="link-block">
+                <a href="https://www.arxiv.org/abs/2512.08125" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Video (optional) -->
+              <!-- <span class="link-block">
+                <a href="#" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span> -->
+              <!-- Code -->
+              <span class="link-block">
+                <a href="https://github.com/Tharindu-Nirmal/FlowSteer"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                </a>
+              </span>
+              <!-- Dataset (optional) -->
+              <span class="link-block">
+                <a href="#"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="far fa-images"></i>
+                  </span>
+                  <span>Data</span>
+                </a>
+              </span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- (Optional) teaser video / gif – keep as placeholder -->
+<!-- <section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <!-- Replace teaser.mp4 later, or remove this whole block -->
+      <!-- <video id="teaser" autoplay muted loop playsinline height="100%"> 
+        <source src="./static/images/WebsiteTeaser_1.png" type=""> <!-- or ./static/videos/... if you prefer -->
+      <!-- </video>
+      <h2 class="subtitle has-text-centered" id="tldr">
+        Explicit conditioning a flow field with a simple scheduler allows for physically consistent image restoration with pixel-level fidelity.
+      </h2>
+    </div>
+  </div>
+</section> --> 
+
+<!-- Teaser image instead of video -->
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <div class="has-text-centered">
+        <img
+          id="teaser"
+          src="./static/images/WebsiteTeaser_1.png" 
+          alt="FlowSteer teaser"
+          style="max-width: 100%; height: auto;"
+        >
+      </div>
+      <h2 class="subtitle has-text-centered" id="tldr">
+        Explicit conditioning a flow field with a simple scheduler allows for
+        physically consistent image restoration with pixel-level fidelity.
+      </h2>
+    </div>
+  </div>
+</section>
+
+<!-- Simple TL;DR section -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <div class="content has-text-justified tldr-inline">
+          <p>
+            <span class="tldr-label">TL;DR</span>
+            FlowSteer enables to steer a pre-trained flow-based vision language model for zero-shot image
+            reconstruction. It preserves pixel-level fidelity, while leveraging the strong flow-priors.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Results section with task tabs + comparison + vertical split slider -->
+<section class="section" id="results">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Results</h2>
+
+    <!-- Tabs for tasks -->
+    <div class="tabs is-toggle is-toggle-rounded is-centered is-medium">
+      <ul>
+        <li class="is-active" data-task="colorization"><a>Colorization</a></li>
+        <li data-task="superres"><a>Super-resolution</a></li>
+        <li data-task="denoising"><a>Denoising</a></li>
+        <li data-task="deblurring"><a>Deblurring</a></li>
+      </ul>
+    </div>
+
+    <!-- Task panels -->
+    <div class="task-panels">
+
+      <!-- Colorization -->
+      <div class="task-panel is-active" data-task="colorization">
+        <div class="content has-text-justified">
+          <p>
+            Qualitative comparison for <strong>colorization</strong>. FlowSteer better preserves
+            the identity of the input subject, while leveraging the colorizing priors from the flow-model.
+          </p>
+        </div>
+
+        <!-- 1) Static comparison image -->
+        <div class="has-text-centered">
+          <img
+            src="./static/images/colorization_compare.png"
+            alt="Colorization: comparison between FlowSteer and baselines"
+            style="max-width: 100%; height: auto;"
+          >
+        </div>
+
+        <!-- 2) Sliders row -->
+        <div class="columns is-variable is-6 is-desktop">
+          <!-- Left: Input vs FlowSteer -->
+          <div class="column">
+            <div class="ba-slider-wrapper">
+              <p class="has-text-centered" style="margin-top: 1rem;">
+                Input (grayscale) &nbsp;↔&nbsp; FlowSteer colorized result
+              </p>
+              <div class="ba-slider" data-task="colorization-input-vs-flowsteer">
+                <!-- Base image on the right (FlowSteer) -->
+                <img
+                  src="./static/images/colorization_flowsteer.png"
+                  alt="Colorization output (FlowSteer)"
+                  class="ba-img ba-img-before"
+                >
+                <!-- Overlay image on the left (input) -->
+                <div class="ba-img-after-wrapper">
+                  <img
+                    src="./static/images/colorization_input.png"
+                    alt="Colorization input"
+                    class="ba-img ba-img-after"
+                  >
+                </div>
+
+                <div class="ba-handle"></div>
+                <input class="ba-slider-input" type="range" min="0" max="100" value="50">
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: w/o FlowSteer vs w/ FlowSteer -->
+          <div class="column">
+            <div class="ba-slider-wrapper">
+              <p class="has-text-centered" style="margin-top: 1rem;">
+                Colorization with a flow model&nbsp;without / with&nbsp;FlowSteer
+              </p>
+              <div class="ba-slider" data-task="colorization-ablation">
+                <!-- Base image on the right (with FlowSteer) -->
+                <img
+                  src="./static/images/colorization_flowsteer.png"
+                  alt="Colorization with FlowSteer"
+                  class="ba-img ba-img-before"
+                >
+                <!-- Overlay image on the left (without FlowSteer) -->
+                <div class="ba-img-after-wrapper">
+                  <img
+                    src="./static/images/colorization_withoutflowsteer.png"
+                    alt="Colorization without FlowSteer"
+                    class="ba-img ba-img-after"
+                  >
+                </div>
+
+                <div class="ba-handle"></div>
+                <input class="ba-slider-input" type="range" min="0" max="100" value="50">
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Super-resolution -->
+      <div class="task-panel" data-task="superres">
+        <div class="content has-text-justified">
+          <p>
+            Qualitative comparison for <strong>super-resolution</strong>. FlowSteer reconstructs
+            sharper edges and fine details while remaining faithful to the low-resolution input.
+          </p>
+        </div>
+
+        <!-- 1) Static comparison image -->
+        <div class="has-text-centered">
+          <img
+            src="./static/images/superres_compare.png"
+            alt="Super-resolution: comparison between FlowSteer and baselines"
+            style="max-width: 100%; height: auto;"
+          >
+        </div>
+
+        <!-- 2) Sliders row -->
+        <div class="columns is-variable is-6 is-desktop">
+          <!-- Left: Input vs FlowSteer -->
+          <div class="column">
+            <div class="ba-slider-wrapper">
+              <p class="has-text-centered" style="margin-top: 1rem;">
+                Input (4x low res. + noise) &nbsp;↔&nbsp; FlowSteer higher res. result
+              </p>
+              <div class="ba-slider" data-task="superres-input-vs-flowsteer">
+                <!-- Base image on the right (FlowSteer) -->
+                <img
+                  src="./static/images/superres_flowsteer.png"
+                  alt="superres output (FlowSteer)"
+                  class="ba-img ba-img-before"
+                >
+                <!-- Overlay image on the left (input) -->
+                <div class="ba-img-after-wrapper">
+                  <img
+                    src="./static/images/superres_input.png"
+                    alt="superres input"
+                    class="ba-img ba-img-after"
+                  >
+                </div>
+
+                <div class="ba-handle"></div>
+                <input class="ba-slider-input" type="range" min="0" max="100" value="50">
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: w/o FlowSteer vs w/ FlowSteer -->
+          <div class="column">
+            <div class="ba-slider-wrapper">
+              <p class="has-text-centered" style="margin-top: 1rem;">
+                Super-resolution with a flow model&nbsp;without / with&nbsp;FlowSteer
+              </p>
+              <div class="ba-slider" data-task="superres-ablation">
+                <!-- Base image on the right (with FlowSteer) -->
+                <img
+                  src="./static/images/superres_flowsteer.png"
+                  alt="superres with FlowSteer"
+                  class="ba-img ba-img-before"
+                >
+                <!-- Overlay image on the left (without FlowSteer) -->
+                <div class="ba-img-after-wrapper">
+                  <img
+                    src="./static/images/superres_withoutflowsteer.png"
+                    alt="superres without FlowSteer"
+                    class="ba-img ba-img-after"
+                  >
+                </div>
+
+                <div class="ba-handle"></div>
+                <input class="ba-slider-input" type="range" min="0" max="100" value="50">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Denoising -->
+      <div class="task-panel" data-task="denoising">
+        <div class="content has-text-justified">
+          <p>
+            Qualitative comparison for <strong>denoising</strong>. FlowSteer removes noise while
+            preserving high-frequency texture and contrast.
+          </p>
+        </div>
+
+        <!-- 1) Static comparison image -->
+        <div class="has-text-centered">
+          <img
+            src="./static/images/denoising_compare.png"
+            alt="Denoising: comparison between FlowSteer and baselines"
+            style="max-width: 100%; height: auto;"
+          >
+        </div>
+
+        <!-- 2) Sliders row -->
+        <div class="columns is-variable is-6 is-desktop">
+          <!-- Left: Input vs FlowSteer -->
+          <div class="column">
+            <div class="ba-slider-wrapper">
+              <p class="has-text-centered" style="margin-top: 1rem;">
+                Input (noisy) &nbsp;↔&nbsp; FlowSteer denoised result
+              </p>
+              <div class="ba-slider" data-task="denoising-input-vs-flowsteer">
+                <!-- Base image on the right (FlowSteer) -->
+                <img
+                  src="./static/images/denoising_flowsteer.png"
+                  alt="denoising output (FlowSteer)"
+                  class="ba-img ba-img-before"
+                >
+                <!-- Overlay image on the left (input) -->
+                <div class="ba-img-after-wrapper">
+                  <img
+                    src="./static/images/denoising_input.png"
+                    alt="denoising input"
+                    class="ba-img ba-img-after"
+                  >
+                </div>
+
+                <div class="ba-handle"></div>
+                <input class="ba-slider-input" type="range" min="0" max="100" value="50">
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: w/o FlowSteer vs w/ FlowSteer -->
+          <div class="column">
+            <div class="ba-slider-wrapper">
+              <p class="has-text-centered" style="margin-top: 1rem;">
+                Denoising with a flow model&nbsp;without / with&nbsp;FlowSteer
+              </p>
+              <div class="ba-slider" data-task="denoising-ablation">
+                <!-- Base image on the right (with FlowSteer) -->
+                <img
+                  src="./static/images/denoising_flowsteer.png"
+                  alt="denoising with FlowSteer"
+                  class="ba-img ba-img-before"
+                >
+                <!-- Overlay image on the left (without FlowSteer) -->
+                <div class="ba-img-after-wrapper">
+                  <img
+                    src="./static/images/denoising_withoutflowsteer.png"
+                    alt="denoising without FlowSteer"
+                    class="ba-img ba-img-after"
+                  >
+                </div>
+
+                <div class="ba-handle"></div>
+                <input class="ba-slider-input" type="range" min="0" max="100" value="50">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Deblurring -->
+      <div class="task-panel" data-task="deblurring">
+        <div class="content has-text-justified">
+          <p>
+            Qualitative comparison for <strong>deblurring</strong>. FlowSteer restores sharp
+            structure from Gaussian-blurred inputs.
+          </p>
+        </div>
+
+        <!-- 1) Static comparison image -->
+        <div class="has-text-centered">
+          <img
+            src="./static/images/deblurring_compare.png"
+            alt="Deblurring: comparison between FlowSteer and baselines"
+            style="max-width: 100%; height: auto;"
+          >
+        </div>
+
+        <!-- 2) Sliders row -->
+        <div class="columns is-variable is-6 is-desktop">
+          <!-- Left: Input vs FlowSteer -->
+          <div class="column">
+            <div class="ba-slider-wrapper">
+              <p class="has-text-centered" style="margin-top: 1rem;">
+                Input (blurred + noise) &nbsp;↔&nbsp; FlowSteer deblurred result
+              </p>
+              <div class="ba-slider" data-task="deblurring-input-vs-flowsteer">
+                <!-- Base image on the right (FlowSteer) -->
+                <img
+                  src="./static/images/deblurring_flowsteer.png"
+                  alt="deblurring output (FlowSteer)"
+                  class="ba-img ba-img-before"
+                >
+                <!-- Overlay image on the left (input) -->
+                <div class="ba-img-after-wrapper">
+                  <img
+                    src="./static/images/deblurring_input.png"
+                    alt="Colorization input"
+                    class="ba-img ba-img-after"
+                  >
+                </div>
+
+                <div class="ba-handle"></div>
+                <input class="ba-slider-input" type="range" min="0" max="100" value="50">
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: w/o FlowSteer vs w/ FlowSteer -->
+          <div class="column">
+            <div class="ba-slider-wrapper">
+              <p class="has-text-centered" style="margin-top: 1rem;">
+                Deblurring with a flow model&nbsp;without / with&nbsp;FlowSteer
+              </p>
+              <div class="ba-slider" data-task="deblurring-ablation">
+                <!-- Base image on the right (with FlowSteer) -->
+                <img
+                  src="./static/images/deblurring_flowsteer.png"
+                  alt="deblurring with FlowSteer"
+                  class="ba-img ba-img-before"
+                >
+                <!-- Overlay image on the left (without FlowSteer) -->
+                <div class="ba-img-after-wrapper">
+                  <img
+                    src="./static/images/deblurring_withoutflowsteer.png"
+                    alt="deblurring without FlowSteer"
+                    class="ba-img ba-img-after"
+                  >
+                </div>
+
+                <div class="ba-handle"></div>
+                <input class="ba-slider-input" type="range" min="0" max="100" value="50">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+
+<!-- Abstract section -->
+<section class="section" id="abstract">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Flow-based text-to-image (T2I) models excel at prompt-driven image generation, but falter on Image Restoration (IR), often "drifting away" from being faithful to the measurement. 
+Prior work mitigate this drift with data-specific flows or task-specific adapters that are computationally heavy and not scalable across tasks. This raises the question "Can't we efficiently manipulate the existing generative capabilities of a flow model?" 
+To this end, we introduce <b>FlowSteer (FS)</b>, an operator-aware conditioning scheme that injects measurement priors along the sampling path,coupling a frozed flow's implicit guidance with explicit measurement constraints. 
+Across super-resolution, deblurring, denoising, and colorization, FS improves measurement consistency and identity preservation in a strictly zero-shot setting— <b>no retrained models, no adapters</b>.
+We show how the nature of flow models and their sensitivities to noise inform the design of such a scheduler.FlowSteer, although simple, achieves a higher fidelity of reconstructed images, while leveraging the rich generative priors of flow models.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Method section -->
+<section class="section" id="method">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Method</h2>
+
+    <!-- Figure on top -->
+    <div class="has-text-centered" style="margin-bottom: 1.5rem;">
+      <figure class="image">
+        <img
+          src="./static/images/Website_Method_1.png"
+          alt="Overview of the FlowSteer method"
+          style="max-width: 100%; height: auto;"
+        >
+        <figcaption class="has-text-grey is-size-7" style="margin-top: 0.5rem;">
+          Figure: High-level overview of the FlowSteer pipeline.
+        </figcaption>
+      </figure>
+    </div>
+
+    <!-- Text underneath -->
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <div class="content has-text-justified">
+          <p>
+            FlowSteer conditions a pre–trained flow-based vision-language model with a simple,
+            measurement-aware scheduler for explicit conditioning. The scheduler is designed to
+            control the fidelity update that aligns the flow trajectory with the forward operator.
+          </p>
+          <p>
+            This explicit conditioning complements the implicit conditioning from text prompts,
+            allowing FlowSteer to leverage the rich generative priors of the pre-trained model
+            while maintaining strong pixel-level faithfulness to the measurements.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Tasks / Applications placeholder (analog of Unseen Temporal/Spatial Generation, Editing, etc.) -->
+<!-- <section class="section" id="applications">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Applications</h2>
+        <div class="content has-text-justified">
+          <p>
+            TODO: List the restoration tasks where FlowSteer is applied
+            (e.g., deblurring, denoising, super-resolution, inpainting, colorization).
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> -->
+
+<!-- BibTeX, like SeeU's bottom section -->
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{Tharindu2025_FlowSteer,
+  title   = {FlowSteer: Conditioning Flow Field for Consistent Image Restoration},
+  author  = {Wickremasinghe, Tharindu and Qi, Chenyang and Weligampola, Harshana and Tu, Zhengzhong and Chan, Stanley H.},
+  journal = {arXiv preprint arXiv:2512.08125},
+  year    = {2025},
+}</code></pre>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <!-- Optional footer icons -->
+      <a class="icon-link" href="#">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://github.com/tharindu-nirmal/FlowSteer" class="external-link">
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a
+            <a rel="license"
+               href="http://creativecommons.org/licenses/by-sa/4.0/">
+              Creative Commons Attribution-ShareAlike 4.0 International License
+            </a>.
+          </p>
+          <p>
+            Built with the
+            <a href="https://github.com/nerfies/nerfies.github.io">Nerfies template</a>.
+            <!-- Please remember to remove or customize any analytics code (none is included by default here). -->
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

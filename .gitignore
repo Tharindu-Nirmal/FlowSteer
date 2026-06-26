@@ -1,0 +1,10 @@
+checkpoints/
+data/
+testdata/
+results/
+hf/
+demo/outputs/
+**/__pycache__/
+__pycache__/
+*.pyc
+*.png
