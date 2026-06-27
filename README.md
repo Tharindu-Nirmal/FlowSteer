@@ -8,8 +8,8 @@
 
 [![Arxiv](https://img.shields.io/badge/arXiv-2512.08125-b31b1b.svg?style=for-the-badge&logo=arxiv)](https://www.arxiv.org/abs/2512.08125)
 [![Project Page](https://img.shields.io/badge/Project-Page-green?style=for-the-badge)](https://tharindu-nirmal.github.io/FlowSteer/)
-[![CVPR 2025](https://img.shields.io/badge/CVPR-2025-blue.svg?style=for-the-badge)](https://cvpr.thecvf.com/)
-[![FlowSteer Dataset](https://img.shields.io/badge/SeeU45-Dataset-FF4F1D.svg?style=for-the-badge&logo=Huggingface)](https://huggingface.co/datasets/)
+[![CVPR 2026](https://img.shields.io/badge/CVPR-2026-blue.svg?style=for-the-badge)](https://openaccess.thecvf.com/content/CVPR2026F/papers/Wickremasinghe_FlowSteer_Conditioning_Flow_Field_for_Consistent_Image_Restoration_CVPRF_2026_paper.pdf)
+[![FlowSteer Dataset](https://img.shields.io/badge/FlowSteer100-Dataset-FF4F1D.svg?style=for-the-badge&logo=Huggingface)](https://huggingface.co/datasets/lwickrem/FlowSteer100)
 
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.5.1-EE4C2C.svg?style=for-the-badge&logo=pytorch)](https://pytorch.org)
 [![Python](https://img.shields.io/badge/python-3.10-blue?style=for-the-badge)](https://www.python.org)
@@ -18,9 +18,18 @@
 
 ---
 
-This repository is the official implementation of [FlowSteer](https://www.arxiv.org/abs/2512.08125). FlowSteer is an operator-aware conditioning method that enables flow-based generative models (FLUX) to perform **zero-shot image restoration** — super-resolution, deblurring, denoising, and colorization — without retraining or task-specific adapters. The method injects a measurement prior along the sampling trajectory at each step, steering the flow toward clean images that are consistent with the degraded observation.
+This repository is the official implementation of [FlowSteer](https://www.arxiv.org/abs/2512.08125). FlowSteer is an operator-aware conditioning method that enables flow-based generative models (FLUX) to perform **zero-shot image restoration** — super-resolution, deblurring, denoising, and colorization — without retraining or task-specific adapters. 
+<div align="center">
+  <img src="docs/static/images/Website_Method_1.png" width="90%" alt="FlowSteer Method Overview">
+</div>
 
-For visual results and comparisons, see the **[project page](https://tharindu-nirmal.github.io/FlowSteer/)**.
+FlowSteer injects a measurement prior along the sampling trajectory at each step, steering the flow toward clean images that are consistent with the degraded observation.
+
+<div align="center">
+  <img src="docs/static/images/Website_Method_2.png" width="90%" alt="FlowSteer Method Details">
+</div>
+
+For interactive visual results and comparisons, see the **[project page](https://tharindu-nirmal.github.io/FlowSteer/)**.
 
 ---
 
